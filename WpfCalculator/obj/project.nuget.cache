@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "Ocjp3JeOOsWL5O11w3vwwb0KgZMUrZ3OkcJIrxyYngu8e2JqUVcBShmge7NDmprXzxGSQsjoqMsu+F9labYoMA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Ruby\\source\\repos\\WpfCalculator\\WpfCalculator\\WpfCalculator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Ruby\\.nuget\\packages\\microsoft.netcore.app.host.win-x86\\3.1.7\\microsoft.netcore.app.host.win-x86.3.1.7.nupkg.sha512"
+  ],
+  "logs": []
+}

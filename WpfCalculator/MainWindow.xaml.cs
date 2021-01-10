@@ -22,6 +22,8 @@ namespace WpfCalculator
     {
         double firstNumber, secondNumber;
         string operation = "";
+        bool firstNumberHasValue = false;
+        StringBuilder formula = new StringBuilder();
         
         public MainWindow()
         {
@@ -42,41 +44,62 @@ namespace WpfCalculator
             {
                 txtResult.Text += button.Content.ToString();
             }
+            AppendString($"{button.Content}");
         }
 
         private void Operator_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            firstNumber += Convert.ToDouble(txtResult.Text);
             
-            txtResult.Text = "";
+            switch (operation)
+            {
+                case "+":
+                    firstNumber += Convert.ToDouble(txtResult.Text);
+                    break;
+                case "/":
+                    firstNumber /= Convert.ToDouble(txtResult.Text);
+                    break;
+                case "x":
+                    firstNumber *= Convert.ToDouble(txtResult.Text);
+                    break;
+                case "-":
+                    firstNumber -= Convert.ToDouble(txtResult.Text);
+                    break;
+                default:
+                    break;
+            }
+            var button = sender as Button;
             operation = button.Content.ToString();
+            if(firstNumberHasValue == false)
+                firstNumber = Convert.ToDouble(txtResult.Text);
+
+            firstNumberHasValue = true;
+            txtResult.Text = "";
+            AppendString($" {button.Content} ");
         }
 
         private void Equals_Click(object sender, RoutedEventArgs e)
         {
+            var button = sender as Button;
+            AppendString($" {button.Content}");
+            secondNumber = Convert.ToDouble(txtResult.Text);
             switch (operation)
             {
                 case "+":
-                    secondNumber = double.Parse(txtResult.Text);
                     txtResult.Text = (firstNumber + secondNumber).ToString();
-                    firstNumber = 0;
                     break;
                 case "/":
-                    secondNumber = double.Parse(txtResult.Text);
                     txtResult.Text = (firstNumber / secondNumber).ToString();
                     break;
                 case "x":
-                    secondNumber = double.Parse(txtResult.Text);
                     txtResult.Text = (firstNumber * secondNumber).ToString();
-                    firstNumber = 0;
                     break;
                 case "-":
-                    secondNumber = double.Parse(txtResult.Text);
                     txtResult.Text = (firstNumber - secondNumber).ToString();
-                    firstNumber = 0;
                     break;
             }
+            firstNumberHasValue = false;
+            formula.Clear();
+            formula.Append(txtResult.Text);
         }
         
         private void Clear_Click(object sender, RoutedEventArgs e)
@@ -84,11 +107,39 @@ namespace WpfCalculator
             txtResult.Text = String.Empty;
             secondNumber = 0;
             firstNumber = 0;
+            formula.Clear();
+            txtFormula.Text = "";
         }
 
         private void ClearEntry_Click(object sender, RoutedEventArgs e)
         {
-            txtResult.Text = "";
+            
+            if (firstNumberHasValue)
+            {
+                int index = 0;
+                for (int i = 0; i < formula.Length; i++)
+                {
+                    if (formula[i].ToString() == operation)
+                        index = i;
+                }
+                formula.Remove(index + 2, txtResult.Text.Length);
+                txtResult.Text = "";
+                
+                txtFormula.Text = formula.ToString();
+            }
+            else 
+            { 
+                txtResult.Text = "";
+                formula.Clear();
+                txtFormula.Text = "";
+            }
+                
+        }
+
+        private void AppendString(string item)
+        {
+            formula.Append(item);
+            txtFormula.Text = formula.ToString();
         }
     }
 }

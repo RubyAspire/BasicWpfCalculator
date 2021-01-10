@@ -4,12 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfCalculator"
+        ResizeMode="NoResize"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="385" Width="256">
     <StackPanel>
-        <TextBlock Foreground="Gray" x:Name="txtFormula" Text="{Binding nums}"/>
+        <TextBlock Foreground="Gray" x:Name="txtFormula" Text="{Binding formula}"/>
         <TextBox Height="30" FontSize="20" x:Name="txtResult"
-                 BorderThickness="0" />
+                 BorderThickness="0" IsReadOnly="True"/>
         <Grid>
 
             <Grid.Resources>

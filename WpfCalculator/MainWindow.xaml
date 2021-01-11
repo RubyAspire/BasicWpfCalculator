@@ -41,7 +41,7 @@
             <Button Content="7" Grid.Column="0" Grid.Row="1" Click="Button_Click"/>
             <Button Content="4" Grid.Column="0" Grid.Row="2" Click="Button_Click"/>
             <Button Content="1" Grid.Column="0" Grid.Row="3" Click="Button_Click"/>
-            <Button Content="%" Grid.Column="0" Grid.Row="4" Click="Button_Click"/>
+            <Button x:Name="btnPlusMinus" Grid.Column="0" Grid.Row="4" Click="PlusMinus_Click"/>
             
             <!--Second Column-->
             <Button Content="CE" Grid.Column="1" Grid.Row="0" Click="ClearEntry_Click"/>
@@ -51,6 +51,7 @@
             <Button Content="0" Grid.Column="1" Grid.Row="4" Click="Button_Click"/>
             
             <!--Third Column-->
+            <Button Content="Del" Grid.Column="2" Grid.Row="0" Click="Delete_Click"/>
             <Button Content="9" Grid.Column="2" Grid.Row="1" Click="Button_Click"/>
             <Button Content="6" Grid.Column="2" Grid.Row="2" Click="Button_Click"/>
             <Button Content="3" Grid.Column="2" Grid.Row="3" Click="Button_Click"/>

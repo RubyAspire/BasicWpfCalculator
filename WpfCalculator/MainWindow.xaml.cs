@@ -20,15 +20,18 @@ namespace WpfCalculator
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Properties
         double firstNumber, secondNumber;
         string operation = "";
-        bool firstNumberHasValue = false;
+        bool firstNumberHasValue = false, equalsClicked = false;
         StringBuilder formula = new StringBuilder();
-        
+        #endregion
+
         public MainWindow()
         {
             InitializeComponent();
             this.DataContext = this;
+            btnPlusMinus.Content = "\u00B1";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -70,7 +73,10 @@ namespace WpfCalculator
             var button = sender as Button;
             operation = button.Content.ToString();
             if(firstNumberHasValue == false)
+            {
+                equalsClicked = false;
                 firstNumber = Convert.ToDouble(txtResult.Text);
+            }
 
             firstNumberHasValue = true;
             txtResult.Text = "";
@@ -97,9 +103,11 @@ namespace WpfCalculator
                     txtResult.Text = (firstNumber - secondNumber).ToString();
                     break;
             }
+            
             firstNumberHasValue = false;
             formula.Clear();
             formula.Append(txtResult.Text);
+            equalsClicked = true;
         }
         
         private void Clear_Click(object sender, RoutedEventArgs e)
@@ -140,6 +148,33 @@ namespace WpfCalculator
         {
             formula.Append(item);
             txtFormula.Text = formula.ToString();
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtResult.Text) && equalsClicked == false)
+            {
+                formula.Remove(formula.Length - 1, 1);
+                txtFormula.Text = formula.ToString();
+                txtResult.Text = txtResult.Text.Remove(txtResult.Text.Length - 1);
+            }
+        }
+
+        private void PlusMinus_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtResult.Text))
+            {
+                if (!txtResult.Text.StartsWith('-'))
+                {
+                    txtResult.Text = txtResult.Text.Insert(0, "-");
+                }
+
+                else
+                {
+                    txtResult.Text = txtResult.Text.Remove(0, 1);
+                }
+                    
+            }
         }
     }
 }
